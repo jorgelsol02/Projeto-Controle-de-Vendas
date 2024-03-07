@@ -262,5 +262,52 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.dao
 
         }
         #endregion
+
+
+        #region Método que retorna um produto por código
+        public Produto retornaProdutoPorCodigo(int id)
+        {
+            try
+            {
+                // 1 passso - Criar o comando sql   
+                string sql = @"select * from tb_produtos where id = @id";
+
+                // 2 passo - organizar e executar o comando
+
+                MySqlCommand executacdm = new MySqlCommand(sql, conexao);
+                executacdm.Parameters.AddWithValue("@id", id);
+
+                conexao.Open();
+
+                // 3 passo - criar o mysql DataReader
+
+                MySqlDataReader rs = executacdm.ExecuteReader();
+
+                if (rs.Read())
+                {
+                    Produto p = new Produto();
+                    p.id = rs.GetInt32("id");
+                    p.descricao = rs.GetString("descricao");
+                    p.preco = rs.GetDecimal("preco");
+
+                    return p;
+                }
+                else
+                {
+                    MessageBox.Show("Nenhum produto encontrado com esse código.");
+                    return null;
+
+                }
+
+            }
+            catch (Exception erro)
+            {
+
+                MessageBox.Show("Aconteceu o erro: "+ erro);
+                return null;
+            }
+        }
+
+        #endregion
     }
 }

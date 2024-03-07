@@ -286,6 +286,7 @@
             this.txtcodigo.Size = new System.Drawing.Size(61, 26);
             this.txtcodigo.TabIndex = 9;
             this.txtcodigo.TextChanged += new System.EventHandler(this.txtcodigo_TextChanged);
+            this.txtcodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtcodigo_KeyPress);
             // 
             // labelcodigo
             // 
