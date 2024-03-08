@@ -42,7 +42,7 @@
             this.btnadd = new System.Windows.Forms.Button();
             this.txtpreco = new System.Windows.Forms.TextBox();
             this.txtqtd = new System.Windows.Forms.TextBox();
-            this.preco = new System.Windows.Forms.Label();
+            this.labelpreco = new System.Windows.Forms.Label();
             this.quantidade = new System.Windows.Forms.Label();
             this.txtdesc = new System.Windows.Forms.TextBox();
             this.desc = new System.Windows.Forms.Label();
@@ -50,7 +50,7 @@
             this.labelcodigo = new System.Windows.Forms.Label();
             this.tabelaProdutos = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txttotal = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btncancelar = new System.Windows.Forms.Button();
             this.btnpagamento = new System.Windows.Forms.Button();
@@ -175,7 +175,7 @@
             this.groupBox2.Controls.Add(this.btnadd);
             this.groupBox2.Controls.Add(this.txtpreco);
             this.groupBox2.Controls.Add(this.txtqtd);
-            this.groupBox2.Controls.Add(this.preco);
+            this.groupBox2.Controls.Add(this.labelpreco);
             this.groupBox2.Controls.Add(this.quantidade);
             this.groupBox2.Controls.Add(this.txtdesc);
             this.groupBox2.Controls.Add(this.desc);
@@ -211,6 +211,7 @@
             this.btnadd.TabIndex = 7;
             this.btnadd.Text = "Adicionar Item";
             this.btnadd.UseVisualStyleBackColor = false;
+            this.btnadd.Click += new System.EventHandler(this.btnadd_Click);
             // 
             // txtpreco
             // 
@@ -232,17 +233,17 @@
             this.txtqtd.TabIndex = 13;
             this.txtqtd.TextChanged += new System.EventHandler(this.txtqtd_TextChanged);
             // 
-            // preco
+            // labelpreco
             // 
-            this.preco.AutoSize = true;
-            this.preco.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.preco.Location = new System.Drawing.Point(7, 115);
-            this.preco.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.preco.Name = "preco";
-            this.preco.Size = new System.Drawing.Size(85, 20);
-            this.preco.TabIndex = 14;
-            this.preco.Text = "Preço (R$)";
-            this.preco.Click += new System.EventHandler(this.preco_Click);
+            this.labelpreco.AutoSize = true;
+            this.labelpreco.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.labelpreco.Location = new System.Drawing.Point(7, 115);
+            this.labelpreco.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelpreco.Name = "labelpreco";
+            this.labelpreco.Size = new System.Drawing.Size(85, 20);
+            this.labelpreco.TabIndex = 14;
+            this.labelpreco.Text = "Preço (R$)";
+            this.labelpreco.Click += new System.EventHandler(this.preco_Click);
             // 
             // quantidade
             // 
@@ -301,32 +302,36 @@
             // 
             // tabelaProdutos
             // 
+            this.tabelaProdutos.AllowUserToAddRows = false;
+            this.tabelaProdutos.AllowUserToDeleteRows = false;
             this.tabelaProdutos.BackgroundColor = System.Drawing.SystemColors.Control;
             this.tabelaProdutos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tabelaProdutos.Location = new System.Drawing.Point(448, 108);
+            this.tabelaProdutos.Location = new System.Drawing.Point(402, 108);
             this.tabelaProdutos.Name = "tabelaProdutos";
-            this.tabelaProdutos.Size = new System.Drawing.Size(449, 367);
+            this.tabelaProdutos.ReadOnly = true;
+            this.tabelaProdutos.Size = new System.Drawing.Size(495, 367);
             this.tabelaProdutos.TabIndex = 5;
+            this.tabelaProdutos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tabelaProdutos_CellContentClick);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.txttotal);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Location = new System.Drawing.Point(448, 481);
+            this.groupBox3.Location = new System.Drawing.Point(402, 481);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(449, 73);
+            this.groupBox3.Size = new System.Drawing.Size(495, 73);
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
             // 
-            // textBox1
+            // txttotal
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.textBox1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Location = new System.Drawing.Point(128, 31);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(191, 26);
-            this.textBox1.TabIndex = 21;
+            this.txttotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txttotal.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.txttotal.Location = new System.Drawing.Point(128, 31);
+            this.txttotal.Margin = new System.Windows.Forms.Padding(4);
+            this.txttotal.Name = "txttotal";
+            this.txttotal.Size = new System.Drawing.Size(191, 26);
+            this.txttotal.TabIndex = 21;
             // 
             // label2
             // 
@@ -379,6 +384,7 @@
             this.Name = "Frmvendas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tela de Vendas";
+            this.Load += new System.EventHandler(this.Frmvendas_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -407,14 +413,14 @@
         private System.Windows.Forms.TextBox txtdesc;
         private System.Windows.Forms.Label desc;
         private System.Windows.Forms.TextBox txtpreco;
-        private System.Windows.Forms.Label preco;
+        private System.Windows.Forms.Label labelpreco;
         private System.Windows.Forms.TextBox txtqtd;
         private System.Windows.Forms.Label quantidade;
         private System.Windows.Forms.Button brnremover;
         private System.Windows.Forms.Button btnadd;
         private System.Windows.Forms.DataGridView tabelaProdutos;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txttotal;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btncancelar;
         private System.Windows.Forms.Button btnpagamento;

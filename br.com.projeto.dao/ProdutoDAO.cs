@@ -289,12 +289,13 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.dao
                     p.id = rs.GetInt32("id");
                     p.descricao = rs.GetString("descricao");
                     p.preco = rs.GetDecimal("preco");
-
+                    conexao.Close();
                     return p;
                 }
                 else
                 {
                     MessageBox.Show("Nenhum produto encontrado com esse código.");
+                    conexao.Close();
                     return null;
 
                 }
@@ -304,6 +305,7 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.dao
             {
 
                 MessageBox.Show("Aconteceu o erro: "+ erro);
+                conexao.Close();
                 return null;
             }
         }

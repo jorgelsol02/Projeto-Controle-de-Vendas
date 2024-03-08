@@ -22,9 +22,29 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.view
 
         Produto p = new Produto();
         ProdutoDAO pdao = new ProdutoDAO();
+
+        //Variaveis
+
+        int qtd;
+        decimal preco;
+        decimal subtotal, total;
+
+        //carrinho
+
+        DataTable carrinho = new DataTable();
+
         public Frmvendas()
         {
             InitializeComponent();
+
+            carrinho.Columns.Add("Código", typeof(int));
+            carrinho.Columns.Add("Produto", typeof(string));
+            carrinho.Columns.Add("Qtd", typeof(int));
+            carrinho.Columns.Add("Preço Unitário", typeof(decimal));
+            carrinho.Columns.Add("Subtotal", typeof(decimal));
+
+            tabelaProdutos.DataSource = carrinho;
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -92,6 +112,41 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.view
                 txtpreco.Text = p.preco.ToString();
 
             }
+        }
+
+        private void tabelaProdutos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Frmvendas_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnadd_Click(object sender, EventArgs e)
+        {
+            qtd = int.Parse(txtqtd.Text);
+            preco = decimal.Parse(txtpreco.Text);
+            subtotal = qtd * preco;
+
+            total += subtotal;
+
+            // adicionar o produto no carrinho
+
+            carrinho.Rows.Add(int.Parse(txtcodigo.Text), txtdesc.Text, qtd, preco, subtotal);
+
+            txttotal.Text = total.ToString();
+
+            // limpar os campos
+
+            txtcodigo.Clear();
+            txtdesc.Clear();
+            txtqtd.Clear();
+            txtpreco.Clear();
+
+            txtcodigo.Focus();
+
         }
     }
 }
