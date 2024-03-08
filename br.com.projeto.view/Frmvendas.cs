@@ -124,6 +124,23 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.view
 
         }
 
+        private void brnremover_Click(object sender, EventArgs e)
+        {
+            // Botão remover item
+            decimal subproduto = decimal.Parse(tabelaProdutos.CurrentRow.Cells[4].Value.ToString());
+            int indice = tabelaProdutos.CurrentRow.Index;
+
+            DataRow linha = carrinho.Rows[indice];
+
+            carrinho.Rows.Remove(linha);
+            carrinho.AcceptChanges();
+
+            total -= subproduto;
+            txttotal.Text = total.ToString();
+
+            MessageBox.Show("Item removido do carrinho com sucesso!");
+        }
+
         private void btnadd_Click(object sender, EventArgs e)
         {
             qtd = int.Parse(txtqtd.Text);
