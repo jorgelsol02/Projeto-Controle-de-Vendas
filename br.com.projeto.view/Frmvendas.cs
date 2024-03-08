@@ -141,28 +141,49 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.view
             MessageBox.Show("Item removido do carrinho com sucesso!");
         }
 
+        private void btnpagamento_Click(object sender, EventArgs e)
+        {
+            //botão pagamento
+
+            Frmpagamentos tela = new Frmpagamentos();
+
+            // Passando o total para a tela de pagamentos
+
+            tela.txttotal.Text = total.ToString();
+            tela.ShowDialog();
+
+        }
+
         private void btnadd_Click(object sender, EventArgs e)
         {
-            qtd = int.Parse(txtqtd.Text);
-            preco = decimal.Parse(txtpreco.Text);
-            subtotal = qtd * preco;
+            try
+            {
+                qtd = int.Parse(txtqtd.Text);
+                preco = decimal.Parse(txtpreco.Text);
+                subtotal = qtd * preco;
 
-            total += subtotal;
+                total += subtotal;
 
-            // adicionar o produto no carrinho
+                // adicionar o produto no carrinho
 
-            carrinho.Rows.Add(int.Parse(txtcodigo.Text), txtdesc.Text, qtd, preco, subtotal);
+                carrinho.Rows.Add(int.Parse(txtcodigo.Text), txtdesc.Text, qtd, preco, subtotal);
 
-            txttotal.Text = total.ToString();
+                txttotal.Text = total.ToString();
 
-            // limpar os campos
+                // limpar os campos
 
-            txtcodigo.Clear();
-            txtdesc.Clear();
-            txtqtd.Clear();
-            txtpreco.Clear();
+                txtcodigo.Clear();
+                txtdesc.Clear();
+                txtqtd.Clear();
+                txtpreco.Clear();
 
-            txtcodigo.Focus();
+                txtcodigo.Focus();
+            }
+            catch (Exception erro)
+            {
+
+                MessageBox.Show("Digite o código do produto.");
+            }
 
         }
     }
