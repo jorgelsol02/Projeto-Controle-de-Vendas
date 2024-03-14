@@ -177,7 +177,20 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.dao
                 // 1 passo - criar o Datatable e o comando sql
                 DataTable tabelaCliente = new DataTable();
 
-                string sql = "select * from tb_clientes";
+                string sql = @"select c.id as 'Código',
+                               c.nome as 'Nome',
+		                       c.rg as 'RG',
+		                       c.cpf as 'CPF',
+		                       c.email as 'Email',
+		                       c.telefone as 'Telefone',
+		                       c.celular as 'Celular',
+		                       c.cep as 'Cep',
+		                       c.endereco as 'Endereço',
+		                       c.numero as 'Número',
+		                       c.complemento as 'Complemento',
+		                       c.bairro as 'Bairro',
+		                       c.cidade as 'Cidade',
+		                       c.estado as 'Estado'from tb_clientes as c;";
 
                 // 2 passo - Organizar o sql e executar
 
@@ -191,6 +204,7 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.dao
                 MySqlDataAdapter da = new MySqlDataAdapter(executacdm);
                 da.Fill(tabelaCliente);
 
+                conexao.Close();
                 return tabelaCliente;
 
 
@@ -285,14 +299,53 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.dao
 
         #endregion
 
+        #region Método que retorna um cliente por CPF
+
+        public Cliente retornaClientePorCPF(string cpf)
+        {
+            try
+            {
+                // 1 passo - Criar o comando sql e o objeto cliente
+
+                Cliente obj = new Cliente();
+                string sql = @"select *from tb_clientes where cpf = @cpf";
+
+                //2 passo - organizar o comando sql e executar
+                
+
+                MySqlCommand executacdm = new MySqlCommand(sql, conexao);
+                executacdm.Parameters.AddWithValue("@cpf", cpf);
+
+                conexao.Open();
+
+                MySqlDataReader rs = executacdm.ExecuteReader();
+                if (rs.Read())
+                {
+                    obj.codigo = rs.GetInt32("id");
+                    obj.nome = rs.GetString("nome");
+
+                    conexao.Close();
+                    return obj;
+                }
+                else 
+                {
+                    MessageBox.Show("Cliente não encontrado.");
+
+                    conexao.Close();
+                    return null;
+                }
+
+            }
+            catch (Exception erro)
+            {
+
+                MessageBox.Show("Aconteceu o erro: +" + erro);
+                return null;
+            }
+        }
+
+        #endregion
     }
-    #region buscarCPF
-
-
-
-    #endregion
-
-
 
 }
 

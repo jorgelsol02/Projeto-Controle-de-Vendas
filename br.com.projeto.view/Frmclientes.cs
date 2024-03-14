@@ -229,6 +229,7 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.view
 
         private void btnpesquisar_Click(object sender, EventArgs e)
         {
+            //botão pesquisar
              string nome = textpesquisa.Text;
 
             ClienteDAO dao = new ClienteDAO();
