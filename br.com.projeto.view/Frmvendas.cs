@@ -145,7 +145,7 @@ namespace Projeto_Controle_de_Vendas.br.com.projeto.view
         {
             //botão pagamento
 
-            Frmpagamentos tela = new Frmpagamentos();
+            Frmpagamentos tela = new Frmpagamentos(cliente,carrinho);
 
             // Passando o total para a tela de pagamentos
 
